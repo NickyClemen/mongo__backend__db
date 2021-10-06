@@ -5,6 +5,7 @@ import IUser from '../interfaces/User.interface';
 const userSchema:Schema = new Schema<IUser>({
     username: String,
     password: String,
+    email: String,
     name: String,
     lastname: String,
     age: Number,

@@ -5,6 +5,7 @@ export default class UserProfileService {
     async createNewUser({
         username,
         password,
+        email,
         name,
         lastname,
         age,
@@ -13,6 +14,7 @@ export default class UserProfileService {
         return await new UserProfile({
             username,
             password,
+            email,
             name,
             lastname,
             age,
@@ -23,6 +25,12 @@ export default class UserProfileService {
     async findUserByUsername(username:string) {
         return await UserProfile.findOne({
             username,
+        });
+    }
+
+    async findUserByEmail(email:string) {
+        return await UserProfile.findOne({
+            email,
         });
     }
 }
