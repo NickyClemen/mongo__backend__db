@@ -1,4 +1,5 @@
 import MongooseConnect from './db/Mongoose.class';
+
 import UserProfileService from './services/User.service';
 
 export default async ():Promise<UserProfileService> => {
