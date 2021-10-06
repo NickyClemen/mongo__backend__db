@@ -1,17 +1,18 @@
 const path = require('path');
 
-const dotenv = require('dotnet');
+const dotenv = require('dotenv');
 const ENV_FILE = path.join(__dirname, '../../.env');
 dotenv.config({ path: ENV_FILE });
-
-class Config {
+export default class Config {
+    public mongoUser:string;
     public mongoPassword:string;
-    public mongoConnectionString:string;
+    public mongoNameDatabase:string;
     public port:number;
 
     constructor() {
+        this.mongoUser = String(process.env.MONGO_USER);
         this.mongoPassword = String(process.env.MONGO_PASSWORD);
-        this.mongoConnectionString = String(process.env.MONGO_CONNECTION_STRING);
+        this.mongoNameDatabase = String(process.env.MONGO_NAME_DATABASE);
         this.port = Number(process.env.PORT);
     }
 }

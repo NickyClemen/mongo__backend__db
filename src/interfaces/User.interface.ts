@@ -1,8 +1,10 @@
-export default interface IUser {
-    _id:number,
-    username:string,
-    password:string,
-    name:string,
-    lastname:string,
-    isLogin:boolean
+import { Document } from 'mongoose';
+
+export default interface IUser extends Document {
+    username:string;
+    password:string;
+    name:string;
+    lastname:string;
+    age:number;
+    isAdmin:boolean;
 }
