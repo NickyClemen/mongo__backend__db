@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema, Model, model } from 'mongoose';
 
 import IUser from '../interfaces/User.interface';
 
@@ -11,4 +11,6 @@ const userSchema:Schema = new Schema<IUser>({
     isAdmin: Boolean
 });
 
-export default model<IUser>('User', userSchema);
+const UserProfile:Model<IUser> = model<IUser>('userprofile', userSchema);
+
+export default UserProfile;

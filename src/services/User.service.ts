@@ -1,11 +1,9 @@
 import IUser from '../interfaces/User.interface';
 
-import User from '../models/User.model';
+import UserProfile from '../models/UserProfileService.model';
 
-export default class UserService {
-    private userInstance:any;
-
-    constructor({
+export default class UserProfileService {
+    async createNewUser({
         username,
         password,
         name,
@@ -13,7 +11,7 @@ export default class UserService {
         age,
         isAdmin
     }:IUser) {
-        this.userInstance = new User({
+        return await new UserProfile({
             username,
             password,
             name,
@@ -24,7 +22,7 @@ export default class UserService {
     }
 
     async findUserByUsername(username:string) {
-        return await this.userInstance.findOne({
+        return await UserProfile.findOne({
             username,
         });
     }
