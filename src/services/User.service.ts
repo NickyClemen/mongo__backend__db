@@ -1,6 +1,6 @@
 import IUser from '../interfaces/User.interface';
 
-import UserProfile from '../models/UserProfileService.model';
+import UserProfile from '../models/User.model';
 export default class UserProfileService {
     async createNewUser({
         username,

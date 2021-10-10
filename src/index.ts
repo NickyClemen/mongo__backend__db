@@ -1,10 +1,12 @@
 import MongooseConnect from './db/Mongoose.class';
 
 import UserProfileService from './services/User.service';
+import BookService from './services/Book.service';
 
-export default async ():Promise<UserProfileService> => {
+export default async () => {
     const mongooseConnect:MongooseConnect = new MongooseConnect();
     const userProfile:UserProfileService = new UserProfileService();
+    const bookService:BookService = new BookService();
 
     await mongooseConnect.connect()
         .then(() => console.log(`--- [connection_message] Conexión exitosa a la base de datos ---`))
@@ -13,5 +15,8 @@ export default async ():Promise<UserProfileService> => {
             process.exit();
         });
 
-    return userProfile;
+    return {
+        userProfile,
+        bookService
+    };
 }
