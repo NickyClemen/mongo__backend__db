@@ -9,6 +9,22 @@ const userSchema:Schema = new Schema<IUser>({
     name: String,
     lastname: String,
     age: Number,
+    readed: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Book'
+    }],
+    reading: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Book'
+    }],
+    toRead: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Book'
+    }],
+    abandoned: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Book'
+    }],
     isAdmin: Boolean
 });
 

@@ -1,14 +1,6 @@
-import IBook from '../interfaces/Book.interface';
-
 import Book from '../models/Book.model';
-
-type Book = {
-    title:string,
-    author:string,
-    genres:string,
-    rating:number,
-}
-
+import IBook from '../interfaces/Book.interface';
+import { TBook } from '../types';
 export default class BookService {
     async createNewBook({
         title,
@@ -24,24 +16,30 @@ export default class BookService {
         });
     }
 
-    async findAllBooks() {
-        return await Book.find();
+    async insertManyBooks(books:TBook[]) {
+        return await Book.insertMany(books)
+        .catch((err:unknown) => (err as Error).message);
     }
 
-    async insertManyBooks(books:Book[]) {
-        return await Book.insertMany(books)
+    async findAllBooks() {
+        return await Book.find({})
+            .catch((err:unknown) => (err as Error).message);
+    }
+
+    async findBookByObjectId(id:string) {
+        return await Book.findById(id)
             .catch((err:unknown) => (err as Error).message);
     }
 
     async findUserByTitle(title:string) {
         return await Book.findOne({
             title,
-        });
+        }).catch((err:unknown) => (err as Error).message);
     }
 
     async findUserByAuthor(author:string) {
         return await Book.findOne({
             author,
-        });
+        }).catch((err:unknown) => (err as Error).message);
     }
 }

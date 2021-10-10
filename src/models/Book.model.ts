@@ -6,7 +6,7 @@ const bookSchema:Schema = new Schema<IBook>({
     title: String,
     author: String,
     genres: String,
-    rating: Number
+    rating: Number,
 });
 
 const Book:Model<IBook> = model<IBook>('book', bookSchema);
