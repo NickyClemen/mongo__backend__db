@@ -1,4 +1,4 @@
-import { Document, Types } from 'mongoose';
+import { Document } from 'mongoose';
 
 import Book from '../models/User.model';
 export default interface IUser extends Document {
