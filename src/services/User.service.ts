@@ -1,9 +1,5 @@
-import { mongo } from 'mongoose';
-
 import IUser from '../interfaces/User.interface';
 import UserProfile from '../models/User.model';
-
-import Book from '../models/Book.model';
 
 import { TUser } from '../types';
 export default class UserProfileService {
@@ -87,6 +83,74 @@ export default class UserProfileService {
 
     async findUserByEmail(email:string) {
         return await UserProfile.findOne({ email })
+            .catch((err:unknown) => (err as Error).message);
+    }
+
+    async findUserReadedBook(username:string) {
+        return await UserProfile.aggregate([
+            { $match: { 'username': username } },
+            { $unwind: '$readed' },
+            {
+                $lookup: {
+                    from: 'books',
+                    localField: 'readed',
+                    foreignField: '_id',
+                    as: 'bookReaded'
+                }
+            },
+            { $unwind: '$bookReaded' }
+        ])
+            .catch((err:unknown) => (err as Error).message);
+    }
+
+    async findUserReadingBook(username:string) {
+        return await UserProfile.aggregate([
+            { $match: { 'username': username } },
+            { $unwind: '$reading' },
+            {
+                $lookup: {
+                    from: 'books',
+                    localField: 'reading',
+                    foreignField: '_id',
+                    as: 'bookReading'
+                }
+            },
+            { $unwind: '$bookReading' }
+        ])
+            .catch((err:unknown) => (err as Error).message);
+    }
+
+    async findUserToReadBook(username:string) {
+        return await UserProfile.aggregate([
+            { $match: { 'username': username } },
+            { $unwind: '$toRead' },
+            {
+                $lookup: {
+                    from: 'books',
+                    localField: 'toRead',
+                    foreignField: '_id',
+                    as: 'bookToRead'
+                }
+            },
+            { $unwind: '$bookToRead' }
+        ])
+            .catch((err:unknown) => (err as Error).message);
+    }
+
+    async findUserAbandonedBook(username:string) {
+        return await UserProfile.aggregate([
+            { $match: { 'username': username } },
+            { $unwind: '$abandoned' },
+            {
+                $lookup: {
+                    from: 'books',
+                    localField: 'abandoned',
+                    foreignField: '_id',
+                    as: 'abandonedBook'
+                }
+            },
+            { $unwind: '$abandonedBook' }
+        ])
             .catch((err:unknown) => (err as Error).message);
     }
 }

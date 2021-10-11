@@ -1,7 +1,6 @@
 import { Types } from "mongoose";
 
 export type TBook = {
-    _id:Types.ObjectId,
     title:string,
     author:string,
     genres:string,
@@ -9,7 +8,6 @@ export type TBook = {
 };
 
 export type TUser = {
-    _id:Types.ObjectId,
     username:string,
     password:string,
     email:string,
