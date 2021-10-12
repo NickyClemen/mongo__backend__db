@@ -7,12 +7,14 @@ export default class BookService {
         author,
         genres,
         rating,
+        image,
     }:IBook) {
         return await new Book({
             title,
             author,
             genres,
             rating,
+            image,
         });
     }
 

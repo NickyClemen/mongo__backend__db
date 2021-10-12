@@ -1,10 +1,9 @@
-import { Types } from "mongoose";
-
 export type TBook = {
     title:string,
     author:string,
     genres:string,
     rating:number,
+    image:string;
 };
 
 export type TUser = {

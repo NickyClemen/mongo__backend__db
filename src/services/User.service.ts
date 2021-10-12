@@ -89,7 +89,6 @@ export default class UserProfileService {
     async findUserReadedBook(username:string) {
         return await UserProfile.aggregate([
             { $match: { 'username': username } },
-            { $unwind: '$readed' },
             {
                 $lookup: {
                     from: 'books',
@@ -98,7 +97,6 @@ export default class UserProfileService {
                     as: 'bookReaded'
                 }
             },
-            { $unwind: '$bookReaded' }
         ])
             .catch((err:unknown) => (err as Error).message);
     }
@@ -106,7 +104,6 @@ export default class UserProfileService {
     async findUserReadingBook(username:string) {
         return await UserProfile.aggregate([
             { $match: { 'username': username } },
-            { $unwind: '$reading' },
             {
                 $lookup: {
                     from: 'books',
@@ -115,7 +112,6 @@ export default class UserProfileService {
                     as: 'bookReading'
                 }
             },
-            { $unwind: '$bookReading' }
         ])
             .catch((err:unknown) => (err as Error).message);
     }
@@ -123,7 +119,6 @@ export default class UserProfileService {
     async findUserToReadBook(username:string) {
         return await UserProfile.aggregate([
             { $match: { 'username': username } },
-            { $unwind: '$toRead' },
             {
                 $lookup: {
                     from: 'books',
@@ -132,7 +127,6 @@ export default class UserProfileService {
                     as: 'bookToRead'
                 }
             },
-            { $unwind: '$bookToRead' }
         ])
             .catch((err:unknown) => (err as Error).message);
     }
@@ -140,7 +134,6 @@ export default class UserProfileService {
     async findUserAbandonedBook(username:string) {
         return await UserProfile.aggregate([
             { $match: { 'username': username } },
-            { $unwind: '$abandoned' },
             {
                 $lookup: {
                     from: 'books',
@@ -149,8 +142,44 @@ export default class UserProfileService {
                     as: 'abandonedBook'
                 }
             },
-            { $unwind: '$abandonedBook' }
-        ])
-            .catch((err:unknown) => (err as Error).message);
+        ]).catch((err:unknown) => (err as Error).message);
+    }
+
+    async findUserBooks(username:string) {
+        return await UserProfile.aggregate([
+            { $match: { 'username': username } },
+            {
+                $lookup: {
+                    from: 'books',
+                    localField: 'readed',
+                    foreignField: '_id',
+                    as: 'bookReaded'
+                }
+            },
+            {
+                $lookup: {
+                    from: 'books',
+                    localField: 'reading',
+                    foreignField: '_id',
+                    as: 'bookReading'
+                }
+            },
+            {
+                $lookup: {
+                    from: 'books',
+                    localField: 'toRead',
+                    foreignField: '_id',
+                    as: 'bookToRead'
+                }
+            },
+            {
+                $lookup: {
+                    from: 'books',
+                    localField: 'abandoned',
+                    foreignField: '_id',
+                    as: 'abandonedBook'
+                }
+            }
+        ]).catch((err:unknown) => (err as Error).message);
     }
 }

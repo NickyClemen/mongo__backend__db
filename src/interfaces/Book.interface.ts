@@ -4,4 +4,5 @@ export default interface IBook extends Document {
     author:string;
     genres:string,
     rating:string;
+    image:string;
 }
