@@ -23,6 +23,7 @@ export default class UserProfileService {
         });
     }
 
+    /** Agrega un libro a la lista de libros leídos. */
     async addReadedBooktoUser(
         { username, id }:{ username:string, id:string }
     ) {
@@ -35,6 +36,7 @@ export default class UserProfileService {
             .catch((err:unknown) => (err as Error).message);
     }
 
+    /** Agrega un libro a la lista de libros siendo leídos. */
     async addReadingBooktoUser(
         { username, id }:{ username:string, id:string }
     ) {
@@ -47,6 +49,7 @@ export default class UserProfileService {
             .catch((err:unknown) => (err as Error).message);
     }
 
+    /** Agrega un libro a la lista de libros por leer. */
     async addToReadBooktoUser(
         { username, id }:{ username:string, id:string }
     ) {
@@ -59,6 +62,7 @@ export default class UserProfileService {
             .catch((err:unknown) => (err as Error).message);
     }
 
+    /** Agrega un libro a la lista de libros abandonados. */
     async addAbandonedBooktoUser(
         { username, id }:{ username:string, id:string }
     ) {
@@ -145,6 +149,9 @@ export default class UserProfileService {
         ]).catch((err:unknown) => (err as Error).message);
     }
 
+    /** Método para filtrar la lista de libros vinculados al usuario por doc ref.
+    * Recorre el array de ObjectID y retorna un nuevo array con la lista de libros completa.
+    */
     async findUserBooks(username:string) {
         return await UserProfile.aggregate([
             { $match: { 'username': username } },
